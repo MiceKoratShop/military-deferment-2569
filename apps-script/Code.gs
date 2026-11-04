@@ -54,9 +54,12 @@ function colIndex_(key) { return COLUMNS.findIndex(c => c[0] === key) + 1; }
 
 /* ---------- Web entry points ---------- */
 // เปิดเว็บแอปโดยตรง / ฝังใน Google Sites
-function doGet() {
-  return HtmlService.createHtmlOutputFromFile('index')
-    .setTitle('ลงทะเบียนผ่อนผันทหาร 2569')
+// เพิ่ม ?page=admin ท้ายลิงก์ /exec เพื่อเปิดหน้าผู้ดูแล
+function doGet(e) {
+  const isAdmin = e && e.parameter && e.parameter.page === 'admin';
+  const html = HtmlService.createHtmlOutputFromFile('index').getContent();
+  return HtmlService.createHtmlOutput(isAdmin ? html.replace('<head>', '<head><script>window.PAGE="admin";</script>') : html)
+    .setTitle(isAdmin ? 'ผู้ดูแลระบบ · ผ่อนผันทหาร 2569' : 'ลงทะเบียนผ่อนผันทหาร 2569')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
