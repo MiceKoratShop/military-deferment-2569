@@ -3,13 +3,15 @@
  * Backend: Google Apps Script + Google Sheets
  *
  * วิธีใช้ (ย่อ): ดู README.md
- *  1) สร้าง Google Sheet ใหม่ > ส่วนขยาย > Apps Script
+ *  1) เปิด Google Sheet (ID ตาม SHEET_ID ด้านล่าง) > ส่วนขยาย > Apps Script
  *  2) วางไฟล์นี้เป็น Code.gs และสร้างไฟล์ HTML ชื่อ index แล้ววางเนื้อหา index.html
  *  3) รันฟังก์ชัน setup() หนึ่งครั้ง (ตั้งรหัสผ่านผู้ดูแล + สร้างชีต)
  *  4) ทำให้ใช้งานได้ > การทำให้ใช้งานได้รายการใหม่ > เว็บแอป
  *     - ดำเนินการในฐานะ: ฉัน   - ผู้ที่มีสิทธิ์เข้าถึง: ทุกคน
  */
 
+// ID ของ Google Sheet ที่ใช้เก็บข้อมูล (ส่วนระหว่าง /d/ กับ /edit ในลิงก์ชีต)
+const SHEET_ID = '1WVZw4pD6w57HM5IOwRhe_AmWpQA88bphVzwmaudD3zo';
 const SHEET_NAME = 'ลงทะเบียน';
 const DEADLINE = new Date('2026-12-18T23:59:59+07:00');
 const REQUIRED_BIRTH_YEAR = 2549;
@@ -36,7 +38,7 @@ function setup() {
 }
 
 function getSheet_() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
   let sh = ss.getSheetByName(SHEET_NAME);
   if (!sh) {
     sh = ss.insertSheet(SHEET_NAME);
