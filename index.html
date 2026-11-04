@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target="_top">
+<title>ลงทะเบียนผ่อนผันทหาร 2569</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0f2a5c; --navy-2:#1b3f86; --gold:#f2b632; --gold-soft:#fff4d6;
+    --red:#c8102e; --ink:#1c2333; --muted:#5b6478; --line:#dfe3ec;
+    --bg:#eef2f8; --card:#ffffff; --ok:#1f8a4c; --ok-soft:#e6f5ec; --warn-soft:#fdecee;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Sarabun",system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.55}
+  h1,h2,h3{font-family:"Prompt",sans-serif;margin:0}
+  .wrap{max-width:900px;margin:0 auto;padding:0 16px}
+  header{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;padding:28px 0 64px;position:relative;overflow:hidden}
+  header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:linear-gradient(90deg,var(--red) 0 33%,#fff 33% 66%,var(--gold) 66%)}
+  .eyebrow{display:inline-block;background:var(--gold);color:var(--navy);font-family:"Prompt";font-weight:600;padding:4px 12px;border-radius:999px;font-size:14px}
+  header h1{font-size:clamp(24px,4.5vw,36px);margin:12px 0 6px;line-height:1.25}
+  header p{margin:0;opacity:.9}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:-40px;position:relative}
+  .fact{background:var(--card);border-radius:14px;padding:14px 16px;box-shadow:0 6px 20px rgba(15,42,92,.10);border-top:4px solid var(--gold)}
+  .fact b{display:block;font-family:"Prompt";font-size:22px;color:var(--navy)}
+  .fact.red{border-top-color:var(--red)} .fact.red b{color:var(--red)}
+  .fact span{color:var(--muted);font-size:14px}
+  nav.tabs{display:flex;gap:6px;margin:24px 0 12px;flex-wrap:wrap}
+  nav.tabs button{font-family:"Prompt";font-size:15px;border:1px solid var(--line);background:#fff;color:var(--navy);padding:10px 16px;border-radius:10px;cursor:pointer}
+  nav.tabs button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .card{background:var(--card);border-radius:16px;padding:24px;box-shadow:0 2px 10px rgba(15,42,92,.06);margin-bottom:20px}
+  .card h2{font-size:20px;color:var(--navy);margin-bottom:4px}
+  .sub{color:var(--muted);margin:0 0 16px;font-size:15px}
+  fieldset{border:none;padding:0;margin:0 0 20px}
+  legend{font-family:"Prompt";font-weight:600;color:var(--navy);font-size:16px;padding:0;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  legend .n{width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--navy);display:inline-grid;place-items:center;font-size:14px}
+  .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  .c2{grid-column:span 2}.c3{grid-column:span 3}.c4{grid-column:span 4}.c6{grid-column:span 6}
+  label.f{display:block;font-size:14px;font-weight:600;margin-bottom:4px}
+  label.f .req{color:var(--red)}
+  input[type=text],input[type=tel],input[type=email],input[type=password],select,textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fbfcfe}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);border-color:var(--gold);background:#fff}
+  .invalid{border-color:var(--red)!important;background:var(--warn-soft)!important}
+  .hint{font-size:13px;color:var(--muted);margin-top:3px}
+  .err{font-size:13px;color:var(--red);margin-top:3px;min-height:0}
+  .radio-row{display:flex;gap:10px;flex-wrap:wrap}
+  .radio-row label{display:flex;gap:6px;align-items:center;border:1px solid var(--line);padding:9px 14px;border-radius:10px;cursor:pointer;background:#fbfcfe}
+  .docs{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .docs li{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-bottom:1px solid var(--line)}
+  .docs li:last-child{border-bottom:none}
+  .docs li label{flex:1;cursor:pointer}
+  .docs small{display:block;color:var(--muted)}
+  .docs .qty{font-family:"Prompt";background:var(--red);color:#fff;border-radius:999px;padding:2px 10px;font-size:13px;white-space:nowrap}
+  input[type=checkbox]{width:20px;height:20px;accent-color:var(--navy);margin-top:2px;flex:none}
+  .note{border-radius:12px;padding:12px 14px;font-size:15px;margin:0 0 16px}
+  .note.gold{background:var(--gold-soft);border-left:4px solid var(--gold)}
+  .note.red{background:var(--warn-soft);border-left:4px solid var(--red)}
+  .note.ok{background:var(--ok-soft);border-left:4px solid var(--ok)}
+  .btn{font-family:"Prompt";font-size:16px;border:none;border-radius:12px;padding:12px 22px;cursor:pointer;background:var(--red);color:#fff}
+  .btn.navy{background:var(--navy)} .btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
+  .btn:disabled{opacity:.55;cursor:wait}
+  .row-end{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+  .hidden{display:none!important}
+  .result{text-align:center;padding:12px 0}
+  .result .big{font-family:"Prompt";font-size:28px;color:var(--navy);letter-spacing:1px}
+  .badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:600;white-space:nowrap}
+  .b-wait{background:#fff4d6;color:#8a5a00}.b-recv{background:#e5eefc;color:#1b3f86}
+  .b-miss{background:var(--warn-soft);color:var(--red)}.b-done{background:var(--ok-soft);color:var(--ok)}
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:760px}
+  th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#f4f6fb;font-family:"Prompt";font-weight:500;color:var(--navy);position:sticky;top:0}
+  td select{padding:6px 8px;font-size:13px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  .toolbar input,.toolbar select{width:auto;flex:1;min-width:160px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+  .stat{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+  .stat b{font-family:"Prompt";font-size:22px;display:block;color:var(--navy)}
+  .stat span{font-size:13px;color:var(--muted)}
+  .demo{background:#fff4d6;color:#6b4a00;text-align:center;font-size:14px;padding:6px 16px}
+  footer{text-align:center;color:var(--muted);font-size:14px;padding:24px 16px 40px}
+  footer a{color:var(--navy);font-weight:600}
+  @media (max-width:640px){
+    .facts{grid-template-columns:1fr}
+    .grid{grid-template-columns:1fr}
+    .c2,.c3,.c4,.c6{grid-column:span 1}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .card{padding:18px}
+  }
+</style>
+</head>
+<body>
+<div id="demoBar" class="demo hidden">โหมดทดลอง: ข้อมูลถูกเก็บไว้ในเบราว์เซอร์นี้เท่านั้น — ตั้งค่า API_URL เพื่อเก็บลง Google Sheets</div>
+<header>
+  <div class="wrap">
+    <span class="eyebrow">ประชาสัมพันธ์ · ปีการศึกษา 2569</span>
+    <h1>ลงทะเบียนขอผ่อนผันการเข้ารับราชการทหารกองประจำการ (ทหารกองเกิน)</h1>
+    <p id="schoolName">สำหรับนักศึกษา</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="facts">
+    <div class="fact"><b>เกิดปี 2549</b><span>นักศึกษาที่ต้องผ่อนผันในปีนี้</span></div>
+    <div class="fact red"><b>18 ธ.ค. 2569</b><span id="countdown">วันสุดท้ายของการส่งเอกสาร</span></div>
+    <div class="fact"><b>6 รายการ × 4 ชุด</b><span>เอกสารที่ต้องเตรียม</span></div>
+  </section>
+
+  <nav class="tabs" role="tablist">
+    <button class="active" data-tab="register">ลงทะเบียน</button>
+    <button data-tab="status">ตรวจสอบสถานะ</button>
+    <button data-tab="admin">ผู้ดูแลระบบ</button>
+  </nav>
+
+  <!-- ================= REGISTER ================= -->
+  <section id="tab-register">
+    <div id="lateNote" class="note red hidden"><b>เลยกำหนดส่งแล้ว</b> — การลงทะเบียนหลังวันที่ 18 ธันวาคม 2569 ต้องเสียค่าดำเนินการเพิ่มเติม 300 บาท และอาจไม่ได้รับการพิจารณา กรุณาติดต่อ ม.เต่อ 082-373-6964</div>
+    <form id="regForm" class="card" novalidate>
+      <h2>แบบฟอร์มลงทะเบียน</h2>
+      <p class="sub">กรอกข้อมูลให้ตรงกับบัตรประชาชนและใบสำคัญ (สด.9) ช่องที่มี <span style="color:var(--red)">*</span> ต้องกรอก</p>
+
+      <fieldset>
+        <legend><span class="n">1</span>คุณสมบัติ</legend>
+        <label class="f">เคยยื่นผ่อนผันแล้วในปีก่อนหรือไม่ <span class="req">*</span></label>
+        <div class="radio-row">
+          <label><input type="radio" name="deferredBefore" value="ไม่เคย" required> ยังไม่เคย</label>
+          <label><input type="radio" name="deferredBefore" value="เคย"> เคยผ่อนผันแล้ว</label>
+        </div>
+        <div id="deferredNote" class="note gold hidden" style="margin-top:10px">ผ่อนผันครั้งเดียว — ถ้าปีที่แล้วเคยผ่อนผันแล้ว ปีนี้ <b>ไม่ต้องมาผ่อนผัน</b> แต่ต้องไปรายงานตัวตามหมายเรียกของปีถัดไป</div>
+      </fieldset>
+
+      <div id="formBody">
+      <fieldset>
+        <legend><span class="n">2</span>ข้อมูลส่วนตัว</legend>
+        <div class="grid">
+          <div class="c2"><label class="f">คำนำหน้า <span class="req">*</span></label>
+            <select name="prefix" required><option value="">เลือก</option><option>นาย</option><option>ว่าที่ร้อยตรี</option><option>อื่น ๆ</option></select></div>
+          <div class="c2"><label class="f">ชื่อ <span class="req">*</span></label><input type="text" name="firstName" required maxlength="60"></div>
+          <div class="c2"><label class="f">นามสกุล <span class="req">*</span></label><input type="text" name="lastName" required maxlength="60"></div>
+          <div class="c3"><label class="f">เลขประจำตัวประชาชน 13 หลัก <span class="req">*</span></label>
+            <input type="text" name="nationalId" inputmode="numeric" required maxlength="17" placeholder="x-xxxx-xxxxx-xx-x" autocomplete="off">
+            <div class="err" data-err="nationalId"></div></div>
+          <div class="c3"><label class="f">วันเกิด <span class="req">*</span></label>
+            <div style="display:grid;grid-template-columns:1fr 1.6fr 1.2fr;gap:6px">
+              <select name="birthDay" required><option value="">วัน</option></select>
+              <select name="birthMonth" required><option value="">เดือน</option></select>
+              <select name="birthYear" required><option value="">ปี พ.ศ.</option></select>
+            </div>
+            <div class="err" data-err="birth"></div></div>
+          <div class="c3"><label class="f">เบอร์โทรศัพท์ <span class="req">*</span></label><input type="tel" name="phone" inputmode="tel" required maxlength="12" placeholder="08x-xxx-xxxx"><div class="err" data-err="phone"></div></div>
+          <div class="c3"><label class="f">อีเมล / LINE ID</label><input type="text" name="contact" maxlength="80"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="n">3</span>ข้อมูลการศึกษา</legend>
+        <div class="grid">
+          <div class="c2"><label class="f">รหัสนักศึกษา <span class="req">*</span></label><input type="text" name="studentId" required maxlength="20"></div>
+          <div class="c2"><label class="f">ระดับชั้น <span class="req">*</span></label>
+            <select name="level" required><option value="">เลือก</option><option>ปวช.1</option><option>ปวช.2</option><option>ปวช.3</option><option>ปวส.1</option><option>ปวส.2</option><option>ปริญญาตรี</option><option>อื่น ๆ</option></select></div>
+          <div class="c2"><label class="f">สาขาวิชา <span class="req">*</span></label><input type="text" name="major" required maxlength="80"></div>
+          <div class="c2"><label class="f">ห้อง / กลุ่มเรียน</label><input type="text" name="room" maxlength="20"></div>
+          <div class="c4"><label class="f">ครูที่ปรึกษา</label><input type="text" name="advisor" maxlength="80"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="n">4</span>ข้อมูลทางทหาร (ตาม สด.9 / สด.35)</legend>
+        <div class="grid">
+          <div class="c2"><label class="f">เลขที่ใบสำคัญ สด.9</label><input type="text" name="sd9No" maxlength="30"></div>
+          <div class="c2"><label class="f">ภูมิลำเนาทหาร อำเภอ/เขต <span class="req">*</span></label><input type="text" name="district" required maxlength="60"></div>
+          <div class="c2"><label class="f">จังหวัด <span class="req">*</span></label><input type="text" name="province" required maxlength="60" list="provinces"></div>
+          <div class="c6"><label class="f">มีการเปลี่ยนชื่อ–สกุล หรือย้ายภูมิลำเนาทหารหรือไม่</label>
+            <div class="radio-row">
+              <label><input type="checkbox" name="changedName" value="1"> เปลี่ยนชื่อ–สกุล</label>
+              <label><input type="checkbox" name="changedDomicile" value="1"> ย้ายภูมิลำเนาทหาร</label>
+            </div></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="n">5</span>เอกสารที่เตรียมแล้ว (เซ็นสำเนาถูกต้องทุกฉบับ)</legend>
+        <ul class="docs" id="docList"></ul>
+        <p class="hint">เรียงเอกสารหมายเลข 1–6 ตามลำดับและเย็บเป็นชุด อย่างละ 4 ชุด แล้วนำส่งที่ <b>ม.สมรักษ์</b> โดยตรงเท่านั้น</p>
+      </fieldset>
+
+      <fieldset>
+        <label class="f" style="display:flex;gap:10px;align-items:flex-start;font-weight:500">
+          <input type="checkbox" name="consent" required>
+          <span>ข้าพเจ้ายืนยันว่าข้อมูลถูกต้อง และยินยอมให้สถานศึกษาเก็บและใช้ข้อมูลส่วนบุคคลนี้เพื่อการดำเนินเรื่องขอผ่อนผันการเข้ารับราชการทหารเท่านั้น <span class="req">*</span></span>
+        </label>
+      </fieldset>
+
+      <div id="formErr" class="note red hidden"></div>
+      <div class="row-end"><button type="reset" class="btn ghost">ล้างข้อมูล</button><button type="submit" class="btn" id="submitBtn">ส่งข้อมูลลงทะเบียน</button></div>
+      </div>
+    </form>
+
+    <div id="regDone" class="card hidden">
+      <div class="result">
+        <div class="note ok" style="text-align:left"><b>ลงทะเบียนสำเร็จ</b> — กรุณาบันทึกเลขอ้างอิงไว้ และนำเอกสารไปส่งที่ ม.สมรักษ์ ภายในวันที่ 18 ธันวาคม 2569</div>
+        <p class="sub" style="margin:0">เลขอ้างอิงของคุณ</p>
+        <div class="big" id="refNo">-</div>
+        <p id="missingDocs" class="sub"></p>
+        <button class="btn navy" id="newReg">ลงทะเบียนคนถัดไป</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STATUS ================= -->
+  <section id="tab-status" class="hidden">
+    <form id="statusForm" class="card">
+      <h2>ตรวจสอบสถานะการผ่อนผัน</h2>
+      <p class="sub">กรอกเลขประจำตัวประชาชนและรหัสนักศึกษาที่ใช้ลงทะเบียน</p>
+      <div class="grid">
+        <div class="c3"><label class="f">เลขประจำตัวประชาชน</label><input type="text" name="nationalId" inputmode="numeric" maxlength="17" required></div>
+        <div class="c3"><label class="f">รหัสนักศึกษา</label><input type="text" name="studentId" required></div>
+      </div>
+      <div class="row-end" style="margin-top:14px"><button class="btn navy" type="submit">ตรวจสอบ</button></div>
+      <div id="statusOut" style="margin-top:16px"></div>
+    </form>
+  </section>
+
+  <!-- ================= ADMIN ================= -->
+  <section id="tab-admin" class="hidden">
+    <form id="loginForm" class="card">
+      <h2>เข้าสู่ระบบผู้ดูแล</h2>
+      <p class="sub">สำหรับเจ้าหน้าที่ผู้รับเอกสาร</p>
+      <div class="grid"><div class="c3"><label class="f">รหัสผ่าน</label><input type="password" name="password" required></div></div>
+      <div id="loginErr" class="err"></div>
+      <div class="row-end" style="margin-top:14px"><button class="btn navy" type="submit">เข้าสู่ระบบ</button></div>
+    </form>
+
+    <div id="adminPanel" class="card hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+        <h2>รายชื่อผู้ลงทะเบียน</h2>
+        <div style="display:flex;gap:8px"><button class="btn ghost" id="reloadBtn" type="button">รีเฟรช</button><button class="btn navy" id="csvBtn" type="button">ส่งออก CSV</button><button class="btn ghost" id="logoutBtn" type="button">ออก</button></div>
+      </div>
+      <div class="stats" id="stats"></div>
+      <div class="toolbar">
+        <input type="text" id="q" placeholder="ค้นหา ชื่อ / รหัส / เลขอ้างอิง">
+        <select id="fStatus"><option value="">ทุกสถานะ</option></select>
+        <select id="fLevel"><option value="">ทุกระดับชั้น</option></select>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>เลขอ้างอิง</th><th>ชื่อ–สกุล</th><th>รหัส / ชั้น</th><th>โทร</th><th>เอกสาร</th><th>ลงทะเบียน</th><th>สถานะ</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table></div>
+    </div>
+  </section>
+</main>
+
+<datalist id="provinces"></datalist>
+
+<footer>
+  ส่งเอกสารที่ <b>ม.สมรักษ์</b> โดยตรงเท่านั้น · สอบถามเพิ่มเติม <a href="tel:0823736964">082-373-6964 (ม.เต่อ)</a><br>
+  เลยกำหนดส่งเสียค่าดำเนินการเพิ่มเติม 300 บาท
+</footer>
+
+<script>
+/* ===================== CONFIG ===================== */
+const CONFIG = {
+  // วาง URL ของ Web App ที่ได้จาก Google Apps Script (ลงท้ายด้วย /exec)
+  // ถ้าเว้นว่าง และไม่ได้เปิดผ่าน Apps Script ระบบจะทำงานในโหมดทดลอง (เก็บในเบราว์เซอร์)
+  API_URL: "",
+  SCHOOL_NAME: "สำหรับนักศึกษา ปีการศึกษา 2569",
+  REQUIRED_BIRTH_YEAR: 2549,
+  DEADLINE: "2026-12-18T23:59:59+07:00",
+  DEMO_ADMIN_PASSWORD: "admin1234"
+};
+
+const DOCS = [
+  {k:"doc1", t:"สำเนาหมายเรียกทหาร (สด.35)", d:"ขอที่สัสดีอำเภอตามทะเบียนบ้าน · ถ่ายหน้า–หลัง"},
+  {k:"doc2", t:"สำเนาใบสำคัญ (สด.9)", d:"ขอที่สัสดีอำเภอตามทะเบียนบ้าน · ถ่ายหน้า–หลัง"},
+  {k:"doc3", t:"สำเนาทะเบียนบ้าน", d:""},
+  {k:"doc4", t:"สำเนาบัตรประชาชน", d:""},
+  {k:"doc5", t:"สำเนาการเปลี่ยนชื่อ–สกุล", d:"เฉพาะผู้ที่มีการเปลี่ยน", opt:true},
+  {k:"doc6", t:"สำเนาการเปลี่ยนภูมิลำเนาทหาร", d:"เฉพาะผู้ที่มีการเปลี่ยน", opt:true}
+];
+const STATUSES = ["รอส่งเอกสาร","ได้รับเอกสารแล้ว","เอกสารไม่ครบ","ส่งเรื่องผ่อนผันแล้ว"];
+const STATUS_CLASS = {"รอส่งเอกสาร":"b-wait","ได้รับเอกสารแล้ว":"b-recv","เอกสารไม่ครบ":"b-miss","ส่งเรื่องผ่อนผันแล้ว":"b-done"};
+const TH_MONTHS = ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
+const PROVINCES = "กรุงเทพมหานคร กระบี่ กาญจนบุรี กาฬสินธุ์ กำแพงเพชร ขอนแก่น จันทบุรี ฉะเชิงเทรา ชลบุรี ชัยนาท ชัยภูมิ ชุมพร เชียงราย เชียงใหม่ ตรัง ตราด ตาก นครนายก นครปฐม นครพนม นครราชสีมา นครศรีธรรมราช นครสวรรค์ นนทบุรี นราธิวาส น่าน บึงกาฬ บุรีรัมย์ ปทุมธานี ประจวบคีรีขันธ์ ปราจีนบุรี ปัตตานี พระนครศรีอยุธยา พะเยา พังงา พัทลุง พิจิตร พิษณุโลก เพชรบุรี เพชรบูรณ์ แพร่ ภูเก็ต มหาสารคาม มุกดาหาร แม่ฮ่องสอน ยโสธร ยะลา ร้อยเอ็ด ระนอง ระยอง ราชบุรี ลพบุรี ลำปาง ลำพูน เลย ศรีสะเกษ สกลนคร สงขลา สตูล สมุทรปราการ สมุทรสงคราม สมุทรสาคร สระแก้ว สระบุรี สิงห์บุรี สุโขทัย สุพรรณบุรี สุราษฎร์ธานี สุรินทร์ หนองคาย หนองบัวลำภู อ่างทอง อำนาจเจริญ อุดรธานี อุตรดิตถ์ อุทัยธานี อุบลราชธานี".split(" ");
+
+/* ===================== API LAYER ===================== */
+const IN_APPS_SCRIPT = typeof google !== "undefined" && google.script && google.script.run;
+const MODE = IN_APPS_SCRIPT ? "gas" : (CONFIG.API_URL ? "http" : "demo");
+
+function api(action, payload){
+  payload = payload || {};
+  if (MODE === "gas") {
+    return new Promise((res, rej) => google.script.run
+      .withSuccessHandler(r => r && r.ok ? res(r) : rej(new Error((r && r.error) || "เกิดข้อผิดพลาด")))
+      .withFailureHandler(e => rej(e)).api(action, payload));
+  }
+  if (MODE === "http") {
+    return fetch(CONFIG.API_URL, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({action, payload})})
+      .then(r => r.json()).then(r => { if(!r.ok) throw new Error(r.error || "เกิดข้อผิดพลาด"); return r; });
+  }
+  return Promise.resolve().then(() => demoApi(action, payload));
+}
+
+/* Demo backend (localStorage) — mirrors Code.gs logic */
+function demoLoad(){ try { return JSON.parse(localStorage.getItem("mdf2569") || "[]"); } catch(e){ return []; } }
+function demoSave(a){ try { localStorage.setItem("mdf2569", JSON.stringify(a)); } catch(e){} }
+let demoMem = null;
+function demoApi(action, p){
+  if (demoMem === null) demoMem = demoLoad();
+  const db = demoMem;
+  if (action === "register") {
+    if (db.some(r => r.nationalId === p.nationalId)) throw new Error("เลขประจำตัวประชาชนนี้ลงทะเบียนไว้แล้ว — ตรวจสอบได้ที่แท็บ ตรวจสอบสถานะ");
+    const ref = "MD69-" + String(db.length + 1).padStart(4, "0");
+    db.push(Object.assign({}, p, {ref, status:"รอส่งเอกสาร", createdAt:new Date().toISOString(), late: Date.now() > Date.parse(CONFIG.DEADLINE), note:""}));
+    demoSave(db); return {ok:true, ref};
+  }
+  if (action === "status") {
+    const r = db.find(x => x.nationalId === p.nationalId && String(x.studentId).trim() === String(p.studentId).trim());
+    if (!r) throw new Error("ไม่พบข้อมูล กรุณาตรวจสอบเลขประจำตัวประชาชนและรหัสนักศึกษา");
+    return {ok:true, record:{ref:r.ref, name:r.prefix+r.firstName+" "+r.lastName, status:r.status, note:r.note, createdAt:r.createdAt, docs:r.docs, late:r.late}};
+  }
+  if (action === "adminList") { if (p.password !== CONFIG.DEMO_ADMIN_PASSWORD) throw new Error("รหัสผ่านไม่ถูกต้อง"); return {ok:true, records:db}; }
+  if (action === "adminUpdate") {
+    if (p.password !== CONFIG.DEMO_ADMIN_PASSWORD) throw new Error("รหัสผ่านไม่ถูกต้อง");
+    const r = db.find(x => x.ref === p.ref); if (!r) throw new Error("ไม่พบรายการ");
+    if (p.status) r.status = p.status; if (p.note !== undefined) r.note = p.note;
+    demoSave(db); return {ok:true};
+  }
+  throw new Error("unknown action");
+}
+
+/* ===================== HELPERS ===================== */
+const $ = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const digits = s => String(s||"").replace(/\D/g,"");
+function validThaiId(id){
+  if (!/^\d{13}$/.test(id)) return false;
+  let sum = 0; for (let i=0;i<12;i++) sum += +id[i] * (13-i);
+  return (11 - sum % 11) % 10 === +id[12];
+}
+function fmtId(v){ const d = digits(v).slice(0,13); const parts=[1,4,5,2,1]; let out=[],i=0; for(const n of parts){ if(i>=d.length)break; out.push(d.slice(i,i+n)); i+=n;} return out.join("-"); }
+function thDate(iso){ if(!iso) return "-"; const d=new Date(iso); return d.getDate()+" "+["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."][d.getMonth()]+" "+(d.getFullYear()+543); }
+function badge(s){ return `<span class="badge ${STATUS_CLASS[s]||"b-wait"}">${esc(s)}</span>`; }
+
+/* ===================== INIT ===================== */
+$("#schoolName").textContent = CONFIG.SCHOOL_NAME;
+if (MODE === "demo") $("#demoBar").classList.remove("hidden");
+$("#provinces").innerHTML = PROVINCES.map(p => `<option value="${p}">`).join("");
+const fd = $("select[name=birthDay]"), fm = $("select[name=birthMonth]"), fy = $("select[name=birthYear]");
+for (let i=1;i<=31;i++) fd.insertAdjacentHTML("beforeend", `<option>${i}</option>`);
+TH_MONTHS.forEach((m,i) => fm.insertAdjacentHTML("beforeend", `<option value="${i+1}">${m}</option>`));
+for (let y=2545;y<=2553;y++) fy.insertAdjacentHTML("beforeend", `<option>${y}</option>`);
+$("#docList").innerHTML = DOCS.map((d,i) => `<li><input type="checkbox" id="${d.k}" name="${d.k}"><label for="${d.k}"><b>${i+1}. ${d.t}</b>${d.opt?" (ถ้ามี)":""}${d.d?`<small>${d.d}</small>`:""}</label><span class="qty">4 ชุด</span></li>`).join("");
+$("#fStatus").innerHTML += STATUSES.map(s=>`<option>${s}</option>`).join("");
+
+// countdown
+(function(){
+  const left = Math.ceil((Date.parse(CONFIG.DEADLINE) - Date.now()) / 86400000);
+  $("#countdown").textContent = left > 0 ? `เหลืออีก ${left} วัน` : "เลยกำหนดส่งแล้ว (ค่าปรับ 300 บาท)";
+  if (left <= 0) $("#lateNote").classList.remove("hidden");
+})();
+
+// tabs
+$$("nav.tabs button").forEach(b => b.addEventListener("click", () => {
+  $$("nav.tabs button").forEach(x => x.classList.toggle("active", x===b));
+  ["register","status","admin"].forEach(t => $("#tab-"+t).classList.toggle("hidden", t!==b.dataset.tab));
+}));
+
+// ID formatting
+$$("input[name=nationalId]").forEach(inp => inp.addEventListener("input", () => { inp.value = fmtId(inp.value); }));
+
+// deferred-before gate
+$$("input[name=deferredBefore]").forEach(r => r.addEventListener("change", () => {
+  const before = $("input[name=deferredBefore]:checked").value === "เคย";
+  $("#deferredNote").classList.toggle("hidden", !before);
+  $("#formBody").classList.toggle("hidden", before);
+}));
+
+
+/* ===================== REGISTER ===================== */
+function setErr(key, msg){ const el = $(`[data-err=${key}]`); if (el) el.textContent = msg || ""; }
+$("#regForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const f = e.target, errs = [];
+  $$(".invalid", f).forEach(x => x.classList.remove("invalid"));
+  ["nationalId","birth","phone"].forEach(k => setErr(k,""));
+
+  $$("[required]", f).forEach(el => {
+    if (el.type === "radio" || el.type === "checkbox") return;
+    if (!el.value.trim()) { el.classList.add("invalid"); errs.push("กรอกข้อมูลให้ครบทุกช่องที่จำเป็น"); }
+  });
+  const nid = digits(f.nationalId.value);
+  if (nid && !validThaiId(nid)) { f.nationalId.classList.add("invalid"); setErr("nationalId","เลขประจำตัวประชาชนไม่ถูกต้อง"); errs.push("เลขประจำตัวประชาชนไม่ถูกต้อง"); }
+  const phone = digits(f.phone.value);
+  if (phone && !/^0\d{8,9}$/.test(phone)) { f.phone.classList.add("invalid"); setErr("phone","เบอร์โทรไม่ถูกต้อง"); errs.push("เบอร์โทรไม่ถูกต้อง"); }
+  if (f.birthYear.value && +f.birthYear.value !== CONFIG.REQUIRED_BIRTH_YEAR) {
+    f.birthYear.classList.add("invalid"); setErr("birth", `ปีนี้รับเฉพาะผู้ที่เกิดปี พ.ศ. ${CONFIG.REQUIRED_BIRTH_YEAR}`); errs.push(`รับเฉพาะผู้ที่เกิดปี ${CONFIG.REQUIRED_BIRTH_YEAR}`);
+  }
+  if (f.birthDay.value && f.birthMonth.value && f.birthYear.value) {
+    const ce = +f.birthYear.value - 543, dt = new Date(ce, +f.birthMonth.value-1, +f.birthDay.value);
+    if (dt.getMonth() !== +f.birthMonth.value-1) { f.birthDay.classList.add("invalid"); setErr("birth","วันเกิดไม่ถูกต้อง"); errs.push("วันเกิดไม่ถูกต้อง"); }
+  }
+  if (!$("input[name=deferredBefore]:checked")) errs.push("เลือกว่าเคยผ่อนผันแล้วหรือไม่");
+  if (!f.consent.checked) errs.push("กรุณายืนยันความถูกต้องและให้ความยินยอม");
+
+  const box = $("#formErr");
+  if (errs.length) { box.innerHTML = "<b>กรุณาตรวจสอบ:</b> " + [...new Set(errs)].join(" · "); box.classList.remove("hidden"); box.scrollIntoView({behavior:"smooth",block:"center"}); return; }
+  box.classList.add("hidden");
+
+  const docs = DOCS.filter(d => f[d.k].checked).map((d,i)=>DOCS.indexOf(d)+1);
+  const payload = {
+    deferredBefore: $("input[name=deferredBefore]:checked").value,
+    prefix: f.prefix.value, firstName: f.firstName.value.trim(), lastName: f.lastName.value.trim(),
+    nationalId: nid, birthDate: `${f.birthDay.value}/${f.birthMonth.value}/${f.birthYear.value}`,
+    phone, contact: f.contact.value.trim(), studentId: f.studentId.value.trim(), level: f.level.value,
+    major: f.major.value.trim(), room: f.room.value.trim(), advisor: f.advisor.value.trim(),
+    sd9No: f.sd9No.value.trim(), district: f.district.value.trim(), province: f.province.value.trim(),
+    changedName: f.changedName.checked, changedDomicile: f.changedDomicile.checked, docs: docs.join(",")
+  };
+  const btn = $("#submitBtn"); btn.disabled = true; btn.textContent = "กำลังส่งข้อมูล…";
+  try {
+    const r = await api("register", payload);
+    $("#refNo").textContent = r.ref;
+    const need = [1,2,3,4]; if (payload.changedName) need.push(5); if (payload.changedDomicile) need.push(6);
+    const missing = need.filter(n => !docs.includes(n));
+    $("#missingDocs").innerHTML = missing.length ? `<span style="color:var(--red)">เอกสารที่ยังต้องเตรียม: หมายเลข ${missing.join(", ")}</span>` : "เตรียมเอกสารครบแล้ว นำส่งได้เลย";
+    f.reset(); $("#formBody").classList.remove("hidden");
+    $("#regForm").classList.add("hidden"); $("#regDone").classList.remove("hidden");
+    window.scrollTo({top:0, behavior:"smooth"});
+  } catch(err) {
+    box.innerHTML = "<b>ส่งข้อมูลไม่สำเร็จ:</b> " + esc(err.message || err); box.classList.remove("hidden");
+  } finally { btn.disabled = false; btn.textContent = "ส่งข้อมูลลงทะเบียน"; }
+});
+$("#newReg").addEventListener("click", () => { $("#regDone").classList.add("hidden"); $("#regForm").classList.remove("hidden"); });
+
+/* ===================== STATUS ===================== */
+$("#statusForm").addEventListener("submit", async e => {
+  e.preventDefault(); const f = e.target, out = $("#statusOut");
+  out.innerHTML = '<p class="sub">กำลังค้นหา…</p>';
+  try {
+    const {record:r} = await api("status", {nationalId: digits(f.nationalId.value), studentId: f.studentId.value.trim()});
+    out.innerHTML = `<div class="note gold" style="margin:0">
+      <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><b>${esc(r.name)}</b>${badge(r.status)}</div>
+      เลขอ้างอิง <b>${esc(r.ref)}</b> · ลงทะเบียนเมื่อ ${thDate(r.createdAt)}${r.late?' · <span style="color:var(--red)">ลงทะเบียนหลังกำหนด</span>':""}
+      ${r.note?`<div style="margin-top:6px">หมายเหตุจากเจ้าหน้าที่: ${esc(r.note)}</div>`:""}</div>`;
+  } catch(err) { out.innerHTML = `<div class="note red" style="margin:0">${esc(err.message||err)}</div>`; }
+});
+
+/* ===================== ADMIN ===================== */
+let adminPw = "", records = [];
+$("#loginForm").addEventListener("submit", async e => {
+  e.preventDefault(); $("#loginErr").textContent = "";
+  adminPw = e.target.password.value;
+  try { await loadRecords(); $("#loginForm").classList.add("hidden"); $("#adminPanel").classList.remove("hidden"); }
+  catch(err){ $("#loginErr").textContent = err.message || err; }
+});
+$("#logoutBtn").addEventListener("click", () => { adminPw=""; records=[]; $("#rows").innerHTML=""; $("#adminPanel").classList.add("hidden"); $("#loginForm").classList.remove("hidden"); $("#loginForm").reset(); });
+$("#reloadBtn").addEventListener("click", () => loadRecords().catch(e=>alert(e.message)));
+async function loadRecords(){
+  const r = await api("adminList", {password: adminPw}); records = r.records || [];
+  const levels = [...new Set(records.map(x=>x.level).filter(Boolean))];
+  $("#fLevel").innerHTML = '<option value="">ทุกระดับชั้น</option>' + levels.map(l=>`<option>${esc(l)}</option>`).join("");
+  render();
+}
+["q","fStatus","fLevel"].forEach(id => $("#"+id).addEventListener("input", render));
+function render(){
+  const q = $("#q").value.trim().toLowerCase(), fs = $("#fStatus").value, fl = $("#fLevel").value;
+  const list = records.filter(r => (!fs || r.status===fs) && (!fl || r.level===fl) &&
+    (!q || [r.ref,r.firstName,r.lastName,r.studentId,r.phone].join(" ").toLowerCase().includes(q)));
+  $("#stats").innerHTML = [["ทั้งหมด",records.length], ...STATUSES.slice(1).map(s=>[s,records.filter(r=>r.status===s).length])]
+    .map(([k,v])=>`<div class="stat"><b>${v}</b><span>${k}</span></div>`).join("");
+  $("#rows").innerHTML = list.length ? list.map(r => `<tr>
+    <td><b>${esc(r.ref)}</b>${r.late?'<br><span class="badge b-miss">หลังกำหนด</span>':""}</td>
+    <td>${esc(r.prefix)}${esc(r.firstName)} ${esc(r.lastName)}<br><small style="color:var(--muted)">${esc(fmtId(r.nationalId))}</small></td>
+    <td>${esc(r.studentId)}<br><small>${esc(r.level)} ${esc(r.major)}</small></td>
+    <td>${esc(r.phone)}</td>
+    <td>${esc(r.docs||"-")}</td>
+    <td>${thDate(r.createdAt)}</td>
+    <td><select data-ref="${esc(r.ref)}">${STATUSES.map(s=>`<option ${s===r.status?"selected":""}>${s}</option>`).join("")}</select>
+      <input type="text" data-note="${esc(r.ref)}" value="${esc(r.note)}" placeholder="หมายเหตุ" style="margin-top:4px;padding:6px 8px;font-size:13px"></td>
+  </tr>`).join("") : '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px">ไม่มีข้อมูล</td></tr>';
+}
+$("#rows").addEventListener("change", async e => {
+  const ref = e.target.dataset.ref || e.target.dataset.note; if (!ref) return;
+  const rec = records.find(r=>r.ref===ref);
+  const upd = e.target.dataset.ref ? {status:e.target.value} : {note:e.target.value};
+  try { await api("adminUpdate", Object.assign({password:adminPw, ref}, upd)); Object.assign(rec, upd); render(); }
+  catch(err){ alert("บันทึกไม่สำเร็จ: " + (err.message||err)); }
+});
+$("#csvBtn").addEventListener("click", () => {
+  const cols = [["ref","เลขอ้างอิง"],["prefix","คำนำหน้า"],["firstName","ชื่อ"],["lastName","นามสกุล"],["nationalId","เลขประจำตัวประชาชน"],["birthDate","วันเกิด"],["phone","โทร"],["contact","ติดต่ออื่น"],["studentId","รหัสนักศึกษา"],["level","ระดับชั้น"],["major","สาขา"],["room","ห้อง"],["advisor","ครูที่ปรึกษา"],["sd9No","เลข สด.9"],["district","อำเภอ"],["province","จังหวัด"],["docs","เอกสารที่มี"],["status","สถานะ"],["note","หมายเหตุ"],["createdAt","วันที่ลงทะเบียน"]];
+  const csv = "﻿" + [cols.map(c=>c[1]), ...records.map(r=>cols.map(c=> c[0]==="nationalId" ? "'"+r[c[0]] : r[c[0]] ?? ""))]
+    .map(row=>row.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\r\n");
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
+  a.download = "ผ่อนผันทหาร-2569.csv"; a.click();
+});
+</script>
+</body>
+</html>
